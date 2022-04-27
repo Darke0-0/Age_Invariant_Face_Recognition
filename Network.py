@@ -43,7 +43,8 @@ class Regressor(nn.Sequential):
 class Global_Regressor(nn.Module):
     def __init__(self):
         super(Global_Regressor, self).__init__()
-        self.encoder = ptcv_get_model("bn_vgg16", pretrained=True)
+        self.encoder = ptcv_get_model("bn_vgg16", pretrained=False)
+        self.encoder.load_state_dict(torch.load("models/bn_vgg16-0779-0f570b92.pth"))
         self.avg_pool = nn.AvgPool2d(kernel_size=7)
         self.regressor = Regressor(1536, 512)
 
